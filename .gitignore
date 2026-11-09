@@ -1,0 +1,37 @@
+# ---------------------------------------------------------------------------
+# Generated at runtime by the local app in local/
+# ---------------------------------------------------------------------------
+local/.cache/
+local/startup.log
+.cache/
+startup.log
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Dev / test scratch space
+_test/
+dev/
+
+# Editors & OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------------------------------------------------------------------------
+# Documents must NEVER be committed.
+# The jee folder itself lives outside this project, and the browser edition
+# reads files in memory only. These patterns are a belt-and-braces guard so a
+# personal document can never be added to the repository by accident.
+# ---------------------------------------------------------------------------
+*.pdf
+*.jpg
+*.jpeg
+*.png
+*.tif
+*.tiff
+
+# ...but the app ships no documents at all, so nothing legitimate is excluded.

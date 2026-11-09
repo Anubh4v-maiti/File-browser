@@ -1,0 +1,6 @@
+# Netlify response headers.
+# Ask every crawler to keep away, so this deployment stays reachable only by
+# people who were given the link.
+/*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
+  Referrer-Policy: no-referrer

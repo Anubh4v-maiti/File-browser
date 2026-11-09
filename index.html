@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>JEE File Browser</title>
+<meta name="description" content="Search a folder of PDFs and images by file name and by the text inside the documents. Runs entirely in your browser." />
+<!-- Keep this deployment out of search engines: it is meant to be reachable
+     only by people who were given the link. -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%234f8cff'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='14' font-weight='700' fill='white' text-anchor='middle'%3EJEE%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+<!-- ============================ connect screen ============================ -->
+<section class="connect" id="connect">
+  <div class="connect-card">
+    <div class="logo big">JEE</div>
+    <h1>File Browser</h1>
+    <p class="lede">Search your <code>jee</code> folder by file name and by the text
+      inside the PDFs — with previews.</p>
+
+    <p class="privacy">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10V7a6 6 0 1 1 12 0v3"></path><rect x="4" y="10" width="16" height="11" rx="2"></rect></svg>
+      <span>Your files are read <strong>inside this browser tab</strong>. Nothing is uploaded, and no document ever leaves your computer.</span>
+    </p>
+
+    <div class="connect-actions">
+      <button class="btn big" id="pickDir">Choose folder</button>
+      <label class="btn ghost big" for="fileInput">Select files instead</label>
+      <input id="fileInput" type="file" multiple webkitdirectory directory hidden>
+    </div>
+
+    <div id="reconnectWrap" class="reconnect" hidden>
+      <button class="btn ghost big" id="reconnect"></button>
+      <span class="dim small">already allowed on this computer</span>
+    </div>
+
+    <label class="opt">
+      <input type="checkbox" id="optText" checked>
+      Read the text inside PDFs
+      <span class="dim">— slower the first time, then cached</span>
+    </label>
+
+    <p class="drop-hint" id="dropHint">Tip: you can also drag the folder anywhere onto this page.</p>
+    <p class="dim small" id="support"></p>
+  </div>
+</section>
+
+<!-- ============================== main app ============================== -->
+<div id="app" hidden>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">JEE</span>
+      <div class="brand-text">
+        <h1>File Browser</h1>
+        <p class="folder" id="folderPath">—</p>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <span class="pill" id="indexPill" hidden></span>
+      <button class="btn ghost" id="changeBtn" title="Choose a different folder">Change folder</button>
+    </div>
+  </header>
+
+  <div class="searchrow">
+    <div class="searchbox">
+      <svg class="searchicon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"></circle>
+        <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+      </svg>
+      <input id="search" type="search" autocomplete="off" spellcheck="false"
+             placeholder="Search a file name, or text inside the PDFs…" />
+      <button class="clear" id="clearBtn" hidden title="Clear">×</button>
+    </div>
+    <div class="controls">
+      <select id="sortSel" title="Sort order">
+        <option value="opened">Recently opened</option>
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+        <option value="name">Name (A → Z)</option>
+        <option value="namedesc">Name (Z → A)</option>
+        <option value="size">Largest first</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="progress" id="progressWrap" hidden>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="progress-label" id="progressLabel"></span>
+  </div>
+
+  <nav class="chips" id="typeChips">
+    <button class="chip active" data-type="all">All <span class="count"></span></button>
+    <button class="chip" data-type="pdf">PDF <span class="count"></span></button>
+    <button class="chip" data-type="image">Images <span class="count"></span></button>
+  </nav>
+
+  <main class="layout">
+    <section class="results" id="results" tabindex="-1"></section>
+
+    <aside class="preview" id="preview" hidden>
+      <div class="preview-head">
+        <div class="preview-title">
+          <strong id="pvName">—</strong>
+          <span class="meta" id="pvMeta"></span>
+        </div>
+        <div class="preview-actions">
+          <button class="btn" id="pvOpen">Open in tab</button>
+          <button class="btn ghost" id="pvSave">Save copy</button>
+          <button class="btn ghost icon" id="pvClose" title="Close (Esc)">×</button>
+        </div>
+      </div>
+      <div class="preview-body" id="pvBody"></div>
+    </aside>
+  </main>
+
+  <footer class="statusbar">
+    <span id="statusLeft">—</span>
+    <span id="statusRight">processed locally · nothing uploaded</span>
+  </footer>
+
+</div>
+
+<div class="dropzone" id="dropzone" hidden><span>Drop the folder to open it</span></div>
+
+<script type="module" src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+# Only the browser edition needs to be on the web.
+# The offline app, git history and docs stay local.
+local/
+.git/
+.gitignore
+README.md
+Start Local App.bat
+*.log
